@@ -113,7 +113,7 @@ export default function OrderForm() {
 			<input
 				type="text"
 				name="description"
-				placeholder="site description. be descriptive, or not. it's up to you."
+				placeholder="site description. be descriptive, or not. it&apos;s up to you."
 				{...register("description", {
 					required: true,
 					minLength: 2,
