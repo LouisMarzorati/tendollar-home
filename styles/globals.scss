@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #FDF6E4;
 }
 
 a {
@@ -27,4 +28,79 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.box {
+  border: 1px solid #575659;
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  // box shadow that makes the box look like it's floating
+
+  .title {
+    border-bottom: 1px solid #575659;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title-button {
+      border: 1px solid #575659;
+      padding: .5rem;
+      cursor: pointer;
+    }
+  }
+
+  .body {
+    min-height: 400px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .buy-now {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .buy-now-button {
+      border: 1px solid #575659;
+      padding: .5rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.boucing {
+  animation: bounce 1s infinite;
+
+  &:active {
+    animation: none;
+  }
+}
+
+
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-20px);
+  }
+
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.shadow {
+  box-shadow: -13px 11px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 }
