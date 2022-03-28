@@ -1,26 +1,21 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useState } from "react";
 export default function Home() {
 	const [fancy, setFancy] = useState(false);
 	return (
 		<div className="container">
-			<Head>
-				<title>Ten Dollar Site</title>
-				<meta name="description" content="Ten Dollar Site." />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-
 			<main className="main">
 				<div className={`box ${fancy ? "shadow" : ""}`}>
 					<div className="title">
-						<span>
-							<i>Your site name here!</i>
-						</span>
+						<div contentEditable className="editable">
+							Your site name here!
+						</div>
 						<span onClick={() => setFancy(!fancy)} className="title-button">
-							{fancy ? "TOO FANCY" : "make it fancy"}
+							{fancy ? "ok, maybe less fancy" : "make it fancy"}
 						</span>
 					</div>
-					<div className="body">
+					<div className={`body ${fancy ? "fancy-body" : ""}`}>
 						<div>
 							<span>you provide</span>
 							<ul>
@@ -37,14 +32,21 @@ export default function Home() {
 							<span>we provide</span>
 							<ul>
 								<li>
-									<span>a website</span>
+									<span>a {fancy ? "fancy" : ""} website</span>
 								</li>
 							</ul>
+							<Link href="/collection">
+								<a className="link">
+									<span>see the collection</span>
+								</a>
+							</Link>
 						</div>
 						<div className="buy-now">
-							<span className={`buy-now-button ${fancy ? "boucing" : ""}`}>
-								buy now
-							</span>
+							<Link href="/order">
+								<span className={`buy-now-button ${fancy ? "boucing" : ""}`}>
+									order now
+								</span>
+							</Link>
 						</div>
 					</div>
 				</div>
