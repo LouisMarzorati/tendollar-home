@@ -5,23 +5,13 @@ export default function Home() {
 		<div className="container">
 			<Head>
 				<title>Ten Dollar Site</title>
-				<meta name="description" content="My ten dollar site" />
+				<meta name="description" content="Ten Dollar Site." />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
 			<main className="main">
-				<div>lol what</div>
+				<div>home for now</div>
 			</main>
-
-			<footer className="footer">
-				<a
-					href="https://tendollar.site"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					$10.site
-				</a>
-			</footer>
 		</div>
 	);
 }
