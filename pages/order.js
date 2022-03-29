@@ -131,7 +131,7 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 						<OrderForm />
 					</Elements>
 				) : (
-					<div className="space-above">
+					<div className="order-buttons">
 						<button
 							onClick={handlePaymentIntent}
 							disabled={loading || amount === ""}

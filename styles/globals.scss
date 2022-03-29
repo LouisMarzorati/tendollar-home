@@ -206,10 +206,6 @@ input {
   display: flex;
 }
 
-.space-above {
-  margin-top: 2rem;
-}
-
 button {
   padding: 1rem;
   background: none;
@@ -228,4 +224,27 @@ button {
 .errors {
   color: red;
   font-size: 1.2rem;
+}
+
+.grid-item {
+  border: 1px solid #575659;
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  // box shadow that makes the box look like it's floating
+
+  img {
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+  }
+}
+
+.order-buttons {
+  padding: 2rem 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: black;
 }

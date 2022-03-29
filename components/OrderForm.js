@@ -137,18 +137,12 @@ export default function OrderForm() {
 			)}
 			<PaymentElement id="payment-element" />
 
-			<p
-				sx={{
-					display: "flex",
-					justifyContent: "center",
-					flexDirection: "column",
-				}}
-			>
+			<div className="order-buttons">
 				{message && <div id="payment-message">{message}</div>}
 				<button disabled={isLoading || !stripe || !elements} type="submit">
 					send it
 				</button>
-			</p>
+			</div>
 		</form>
 	);
 }
