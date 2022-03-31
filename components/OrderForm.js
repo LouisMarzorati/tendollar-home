@@ -70,7 +70,6 @@ export default function OrderForm() {
 						email: data.email,
 					},
 					metadata: {
-						sitename: data.sitename ?? "no name entered",
 						email: data.email,
 						description: data.description,
 					},
@@ -102,17 +101,6 @@ export default function OrderForm() {
 			{errors.email && (
 				<span className="errors">enter a valid email address</span>
 			)}
-
-			<input
-				type="text"
-				name="sitename"
-				placeholder="site name (or let us name it)"
-				{...register("sitename", {
-					required: false,
-					minLength: 1,
-					maxLength: 30,
-				})}
-			/>
 
 			<input
 				type="text"

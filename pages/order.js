@@ -21,6 +21,8 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 	const [loading, setLoading] = useState(false);
 	const [amount, setAmount] = useState(10);
 	const [disableAmountInput, setDisableAmountInput] = useState(false);
+	const [triedLessThanTen, setTriedLessThanTen] = useState(false);
+	const [triedAmount, setTriedAmount] = useState(false);
 	useEffect(() => {
 		const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 		setStripePromise(stripePromise);
@@ -53,6 +55,11 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 		appearance,
 	};
 
+	const validDollarAmount = (amount) => {
+		var regex = /^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/;
+		return regex.test(amount);
+	};
+
 	const setFailure = () => {
 		window.scrollTo(0, 0);
 		setLoading(false);
@@ -61,10 +68,13 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 
 	const handlePaymentIntent = async () => {
 		if (amount < 10) {
-			toast.error("its called $10 site for a reason");
+			setTriedLessThanTen(true);
+			setTriedAmount(amount);
 			setAmount(10);
 			return;
 		}
+		setTriedLessThanTen(false);
+		setTriedAmount(0);
 		setLoading(true);
 		setError(false);
 		try {
@@ -112,6 +122,17 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 				</span>
 			)}
 			<div className="order-area">
+				<div className="order-text">
+					{!clientSecret && (
+						<>
+							<p>yep, it's $10. if you wanna pay more, cool thanks.</p>
+							{triedLessThanTen &&
+								`did you really just try to pay ${triedAmount} fucking dollars you fucking idiot. yeah let's just set that back to 10.`}
+						</>
+					)}
+					{clientSecret &&
+						`you're gonna pay ${amount} dollars, and that's pretty rad.`}
+				</div>
 				<div className="dollar">
 					$
 					<input
@@ -134,7 +155,7 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 					<div className="order-buttons">
 						<button
 							onClick={handlePaymentIntent}
-							disabled={loading || amount === ""}
+							disabled={loading || amount === "" || !validDollarAmount(amount)}
 						>
 							order
 						</button>
