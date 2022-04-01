@@ -23,6 +23,7 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 	const [disableAmountInput, setDisableAmountInput] = useState(false);
 	const [triedLessThanTen, setTriedLessThanTen] = useState(false);
 	const [triedAmount, setTriedAmount] = useState(false);
+	const [intentKey, setIntentKey] = useState("");
 	useEffect(() => {
 		const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 		setStripePromise(stripePromise);
@@ -87,6 +88,7 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 			if (data && data.clientSecret) {
 				setLoading(false);
 				setClientSecret(data.clientSecret);
+				setIntentKey(data.intent_key);
 				setDisableAmountInput(true);
 			} else {
 				setFailure();
@@ -97,8 +99,14 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 		}
 	};
 
-	const changeAmount = () => {
-		// cancel payment intent
+	const changeAmount = async () => {
+		const req = await fetch("/api/cancel-payment-intent", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ intent_key: intentKey }),
+		});
+
+		const data = await req.json();
 		setClientSecret("");
 		setAmount(10);
 		setDisableAmountInput(false);

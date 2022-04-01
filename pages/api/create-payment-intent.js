@@ -28,8 +28,10 @@ export default async function handler(req, res) {
 	});
 
 	if (paymentIntent) {
+		console.log("paymentIntent", paymentIntent);
 		res.send({
 			clientSecret: paymentIntent.client_secret,
+			intent_key: paymentIntent.id,
 		});
 	} else {
 		res.status(500).send({ error: "Payment intent failed" });
