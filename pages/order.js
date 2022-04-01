@@ -125,7 +125,7 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 				<div className="order-text">
 					{!clientSecret && (
 						<>
-							<p>yep, it's $10. if you wanna pay more, cool thanks.</p>
+							<p>yep, it&apos;s $10. if you wanna pay more, cool thanks.</p>
 							{triedLessThanTen &&
 								`did you really just try to pay ${triedAmount} fucking dollars you fucking idiot. yeah let's just set that back to 10.`}
 						</>
