@@ -30,23 +30,27 @@ export default function OrderForm() {
 		if (!clientSecret) {
 			return;
 		}
-
-		stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-			switch (paymentIntent.status) {
-				case "succeeded":
-					setMessage("Payment succeeded!");
-					break;
-				case "processing":
-					setMessage("Your payment is processing.");
-					break;
-				case "requires_payment_method":
-					setMessage("Your payment was not successful, please try again.");
-					break;
-				default:
-					setMessage("Something went wrong.");
-					break;
-			}
-		});
+		try {
+			stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+				switch (paymentIntent.status) {
+					case "succeeded":
+						setMessage("Payment succeeded!");
+						break;
+					case "processing":
+						setMessage("Your payment is processing.");
+						break;
+					case "requires_payment_method":
+						setMessage("Your payment was not successful, please try again.");
+						break;
+					default:
+						setMessage("Something went wrong.");
+						break;
+				}
+			});
+		} catch (e) {
+			setMessage("Something went wrong.");
+			setIsLoading(false);
+		}
 	}, [stripe]);
 
 	const onSubmit = async (data) => {
@@ -60,29 +64,34 @@ export default function OrderForm() {
 		}
 		setIsLoading(true);
 
-		const { error } = await stripe.confirmPayment({
-			elements,
-			confirmParams: {
-				return_url: "http://localhost:3000/thanks",
-				receipt_email: data.email,
-				payment_method_data: {
-					billing_details: {
-						email: data.email,
-					},
-					metadata: {
-						email: data.email,
-						description: data.description,
+		try {
+			const { error } = await stripe.confirmPayment({
+				elements,
+				confirmParams: {
+					return_url: "https://tendollar.site/thanks",
+					receipt_email: data.email,
+					payment_method_data: {
+						billing_details: {
+							email: data.email,
+						},
+						metadata: {
+							email: data.email,
+							description: data.description,
+						},
 					},
 				},
-			},
-		});
+			});
 
-		if (error.type === "card_error" || error.type === "validation_error") {
-			toast.error(error.message);
-		} else {
-			toast.error("An unexpected error occured.");
+			if (error.type === "card_error" || error.type === "validation_error") {
+				toast.error(error.message);
+			} else {
+				toast.error("An unexpected error occured.");
+			}
+			setIsLoading(false);
+		} catch (e) {
+			toast.error("fuck.. somethin went wrong.");
+			setIsLoading(false);
 		}
-		setIsLoading(false);
 	};
 
 	return (
@@ -128,7 +137,7 @@ export default function OrderForm() {
 			<div className="order-buttons">
 				{message && <div id="payment-message">{message}</div>}
 				<span disabled={isLoading || !stripe || !elements} type="submit">
-					send it
+					{!isLoading ? "send it" : "sendin it..."}
 				</span>
 			</div>
 		</form>
