@@ -127,9 +127,9 @@ export default function OrderForm() {
 
 			<div className="order-buttons">
 				{message && <div id="payment-message">{message}</div>}
-				<button disabled={isLoading || !stripe || !elements} type="submit">
+				<span disabled={isLoading || !stripe || !elements} type="submit">
 					send it
-				</button>
+				</span>
 			</div>
 		</form>
 	);

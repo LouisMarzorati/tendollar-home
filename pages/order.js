@@ -135,7 +135,7 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 						<>
 							<p>yep, it&apos;s $10. if you wanna pay more, cool thanks.</p>
 							{triedLessThanTen &&
-								`did you really just try to pay ${triedAmount} fucking dollars you fucking idiot. yeah let's just set that back to 10.`}
+								`did you really just try to pay $${triedAmount} you fucking idiot. yeah let's just set that back to 10.`}
 						</>
 					)}
 					{clientSecret &&
@@ -161,12 +161,12 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
 					</Elements>
 				) : (
 					<div className="order-buttons">
-						<button
+						<span
 							onClick={handlePaymentIntent}
 							disabled={loading || amount === "" || !validDollarAmount(amount)}
 						>
 							order
-						</button>
+						</span>
 					</div>
 				)}
 			</div>
