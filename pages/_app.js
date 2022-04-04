@@ -84,6 +84,18 @@ function MyApp({ Component, pageProps }) {
 						? `• ${router.pathname.replace("/", "").replace("-", " ")}`
 						: ""}
 				</title>
+				<meta name="title" content="tendollar.site" />
+				<meta
+					name="description"
+					content="like ordering a website from wish.com, your dreams come true with tendollar.site"
+				/>
+				<meta
+					name="keywords"
+					content="ten dollar, ten dollar site, $10 dollar, $10 dollar site, cheap site, ten dollar website, $10 website, funny cheap, dollar general, ten dollar"
+				/>
+				<meta name="robots" content="index, follow" />
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="language" content="English" />
 			</Head>
 			<div>
 				<Toaster />
