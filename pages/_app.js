@@ -96,6 +96,28 @@ function MyApp({ Component, pageProps }) {
 				<meta name="robots" content="index, follow" />
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 				<meta name="language" content="English" />
+				<meta
+					property="og:image"
+					content="https://tendollar.site/fav/10-dollar.png"
+				/>
+				<meta property="og:image:type" content="image/png" />
+				<meta property="og:image:width" content="512" />
+				<meta property="og:image:height" content="512" />
+				<meta
+					name="twitter:image"
+					content="https://tendollar.site/fav/10-dollar.png"
+				/>
+				<meta name="twitter:image:alt" content="tendollar.site" />
+				<meta name="twitter:image:width" content="512" />
+				<meta name="twitter:image:height" content="512" />
+				<meta name="twitter:card" content="summary_large_image" />
+				<meta name="twitter:site" content="@tendollarsite" />
+				<meta name="twitter:creator" content="@tendollarsite" />
+				<meta name="twitter:title" content="tendollar.site" />
+				<meta
+					name="twitter:description"
+					content="like ordering a website from wish.com, your dreams come true with tendollar.site"
+				/>
 			</Head>
 			<div>
 				<Toaster />
