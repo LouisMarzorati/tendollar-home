@@ -94,7 +94,7 @@ function MyApp({ Component, pageProps }) {
 					content="ten dollar, ten dollar site, $10 dollar, $10 dollar site, cheap site, ten dollar website, $10 website, funny cheap, dollar general, ten dollar"
 				/>
 				<meta name="robots" content="index, follow" />
-				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 				<meta name="language" content="English" />
 				<meta
 					property="og:image"
