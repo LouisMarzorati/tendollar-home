@@ -170,9 +170,12 @@ a {
 		border: 1px solid #575659;
 		padding: 0.5rem;
 		cursor: pointer;
-
+		color: black;
 		&:hover {
 			border-radius: 10px;
+		}
+		&:active {
+			color: #000;
 		}
 	}
 }

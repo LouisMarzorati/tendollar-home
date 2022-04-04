@@ -14,6 +14,7 @@ export default function OrderForm() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+
 	const stripe = useStripe();
 	const elements = useElements();
 	const [message, setMessage] = useState(null);
@@ -54,7 +55,7 @@ export default function OrderForm() {
 	}, [stripe]);
 
 	const onSubmit = async (data) => {
-		// check form
+		alert(JSON.stringify(data));
 		if (errors.email) {
 			toast.error("Please enter a valid email address");
 			return;
@@ -65,17 +66,16 @@ export default function OrderForm() {
 		setIsLoading(true);
 
 		try {
-			const { error } = await stripe.confirmPayment({
+			const { error, paymentIntent } = await stripe.confirmPayment({
 				elements,
 				confirmParams: {
-					return_url: "https://tendollar.site/thanks",
+					return_url: `https://tendollar.site/thanks`,
 					receipt_email: data.email,
 					payment_method_data: {
 						billing_details: {
 							email: data.email,
 						},
 						metadata: {
-							email: data.email,
 							description: data.description,
 						},
 					},
@@ -89,6 +89,7 @@ export default function OrderForm() {
 			}
 			setIsLoading(false);
 		} catch (e) {
+			alert(e);
 			toast.error("fuck.. somethin went wrong.");
 			setIsLoading(false);
 		}
@@ -136,9 +137,9 @@ export default function OrderForm() {
 
 			<div className="order-buttons">
 				{message && <div id="payment-message">{message}</div>}
-				<span disabled={isLoading || !stripe || !elements} type="submit">
+				<button disabled={isLoading || !stripe || !elements} type="submit">
 					{!isLoading ? "send it" : "sendin it..."}
-				</span>
+				</button>
 			</div>
 		</form>
 	);

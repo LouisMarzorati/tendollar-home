@@ -40,6 +40,11 @@ const webhookHandler = async (req, res) => {
 		console.log("✅ Success:", event.id);
 
 		switch (event.type) {
+			case "payment_intent.created": {
+				const intent = event.data.object;
+				console.log("💰 Payment intent created:", intent.id);
+				return res.status(200).send("OK");
+			}
 			case "payment_intent.succeeded": {
 				const paymentIntent = event.data.object;
 				console.log(`PaymentIntent status: ${paymentIntent.status}`);
