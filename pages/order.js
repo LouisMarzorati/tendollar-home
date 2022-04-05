@@ -125,7 +125,7 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
         </div>
       )}
       {clientSecret && (
-        <span onClick={changeAmount} className="clickable">
+        <span onClick={changeAmount} className="change-amount">
           change amount?
         </span>
       )}
@@ -165,7 +165,7 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
               onClick={handlePaymentIntent}
               disabled={loading || amount === "" || !validDollarAmount(amount)}
             >
-              order
+              {loading ? "orderin" : "order"}
             </span>
           </div>
         )}

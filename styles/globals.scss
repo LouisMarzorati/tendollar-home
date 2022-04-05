@@ -20,6 +20,26 @@ a {
   padding: 0 2rem;
 }
 
+.payment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+
+  #payment-form {
+    width: 100%;
+  }
+  input {
+    font-size: large;
+  }
+
+  p {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
@@ -28,6 +48,13 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #e6e6e6;
+  margin: 1rem 0;
 }
 
 .box {
@@ -192,11 +219,22 @@ a {
   .order-text {
     font-size: larger;
     text-align: center;
+    //mobile
+    @media (max-width: 600px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  //mobile
+  @media (max-width: 600px) {
+    padding: 1rem;
   }
 }
 
-.clickable {
+.change-amount {
   cursor: pointer;
+  padding-bottom: 1rem;
+  font-size: large;
 }
 
 input {
@@ -207,6 +245,12 @@ input {
   border: 1px solid #f0f0f0;
   max-width: 600px;
 
+  font-size: larger;
+  //mobile
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
+
   &:focus {
     outline: none;
   }
@@ -214,11 +258,25 @@ input {
   &:hover {
     border: 1px solid #000;
   }
+
+  //prevent zoom on mobile
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 .dollar {
   align-items: center;
   display: flex;
+  font-size: larger;
+  //mobile
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
 }
 
 button {
@@ -267,6 +325,7 @@ button {
   align-items: center;
   justify-content: center;
   color: black;
+  font-size: larger;
   span {
     cursor: pointer;
     padding: 0.75rem;
