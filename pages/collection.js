@@ -11,6 +11,11 @@ export async function getServerSideProps() {
 			name: "2.tendollar.site",
 			image: "/images/2.tendollar.site.png",
 		},
+		{
+			url: "https://3.tendollar.site",
+			name: "3.tendollar.site",
+			image: "/images/3.tendollar.site.png",
+		},
 	];
 	return {
 		props: {
