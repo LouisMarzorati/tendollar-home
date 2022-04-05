@@ -11,8 +11,8 @@ export default function ThanksPage() {
   }, []);
 
   return (
-    <div className="center">
-      <span>thanks.</span>
+    <div className="thanks">
+      <h3>thanks.</h3>
       <p>
         ur site is cookin, we&apos;ll email you when it&apos;s complete. (a week
         or two)
@@ -20,6 +20,10 @@ export default function ThanksPage() {
       <p>{order ? `order # ${order}` : ""}</p>
       <Link href="/">
         <a className="link">go home</a>
+      </Link>
+      <p>or</p>
+      <Link href="/collection">
+        <a className="link">peep the collection while you wait</a>
       </Link>
     </div>
   );

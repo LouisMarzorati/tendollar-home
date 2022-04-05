@@ -55,7 +55,6 @@ export default function OrderForm() {
   }, [stripe]);
 
   const onSubmit = async (data) => {
-    alert(JSON.stringify(data));
     if (errors.email) {
       toast.error("Please enter a valid email address");
       return;
@@ -89,7 +88,6 @@ export default function OrderForm() {
       }
       setIsLoading(false);
     } catch (e) {
-      alert(e);
       toast.error("fuck.. somethin went wrong.");
       setIsLoading(false);
     }
