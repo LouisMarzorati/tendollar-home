@@ -325,7 +325,12 @@ button {
   align-items: center;
   justify-content: center;
   color: black;
-  font-size: larger;
+  font-size: large;
+
+  button {
+    color: black;
+    font-size: large;
+  }
   span {
     cursor: pointer;
     padding: 0.75rem;
