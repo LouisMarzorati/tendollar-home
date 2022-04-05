@@ -39,7 +39,7 @@ export default function CollectionPage({ sites, ui_path }) {
             return (
               <div key={i} className="grid-item">
                 <Link href={site.url} passHref>
-                  <a target="_blank">
+                  <a target="_blank" id={i + 1}>
                     <img src={site.image} alt={site.name} />
                   </a>
                 </Link>
