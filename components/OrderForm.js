@@ -36,6 +36,17 @@ export default function OrderForm() {
         switch (paymentIntent.status) {
           case "succeeded":
             setMessage("Payment succeeded!");
+            fetch("/api/purchase", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: "testemail@mail.com",
+                description: "test description",
+              }),
+            });
+
             break;
           case "processing":
             setMessage("Your payment is processing.");
@@ -65,7 +76,7 @@ export default function OrderForm() {
     setIsLoading(true);
 
     try {
-      const { error, paymentIntent } = await stripe.confirmPayment({
+      const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: `https://tendollar.site/thanks`,
