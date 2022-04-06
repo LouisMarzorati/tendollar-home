@@ -1,7 +1,7 @@
 import Head from "next/head";
-import "../styles/globals.scss";
 import { useRouter } from "next/router";
 import { Toaster } from "react-hot-toast";
+import "../styles/globals.scss";
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
@@ -79,12 +79,11 @@ function MyApp({ Component, pageProps }) {
         />
         <link rel="manifest" href="/fav/manifest.json" />
         <title>
-          $10 site{" "}
+          tendollar.site{" "}
           {router.pathname !== "/"
             ? `• ${router.pathname.replace("/", "").replace("-", " ")}`
             : ""}
         </title>
-        <meta name="title" content="tendollar.site" />
         <meta
           name="description"
           content="like ordering a website from wish.com, your dreams come true with tendollar.site"
