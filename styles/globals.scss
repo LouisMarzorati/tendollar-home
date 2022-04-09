@@ -327,12 +327,16 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  img {
+  padding: 1rem;
+  .img {
     width: 100%;
     height: auto;
-    padding: 1rem;
-    // 1:1 aspect ratio for the image
+
+    cursor: pointer;
+    //mobile
+    @media (max-width: 600px) {
+      padding: 0.5rem;
+    }
   }
 }
 
