@@ -61,8 +61,15 @@ const webhookHandler = async (req, res) => {
             `Webhook received: ${paymentIntent.last_payment_error?.message}`
           );
       }
+      case "charge.captured": {
+        const charge = event.data.object;
+        console.log(`charge.captured: ${charge}`);
+
+        return res.status(200).send(`Webhook received: ${event.type}`);
+      }
       case "charge.succeeded": {
         const charge = event.data.object;
+        console.log(`charge.captured: ${charge}`);
         return res.status(200).send(`Webhook received: ${event.type}`);
       }
       default: {
