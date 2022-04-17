@@ -4,6 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import OrderForm from "../components/OrderForm";
 import Link from "next/link";
 import toast from "react-hot-toast";
+
 export async function getServerSideProps() {
   return {
     props: {
@@ -13,8 +14,7 @@ export async function getServerSideProps() {
 }
 export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [sentence, setSentence] = useState("");
+  const [description, setDescription] = useState("");
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
   const [error, setError] = useState(false);
@@ -82,7 +82,7 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
       const req = await fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount }),
+        body: JSON.stringify({ amount, email, description }),
       });
       const data = await req.json();
       if (data && data.clientSecret) {
@@ -141,29 +141,70 @@ export default function OrderPage({ STRIPE_PUBLIC_KEY }) {
           {clientSecret &&
             `you're gonna pay ${amount} dollars, and that's pretty rad.`}
         </div>
-        <div className="dollar">
-          $
+        <div className="payment">
+          <div className="dollar">
+            $
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              placeholder="Amount"
+              value={amount}
+              onChange={(e) => {
+                setAmount(e.target.value);
+              }}
+              disabled={disableAmountInput}
+            />
+          </div>
+          <p>whats ur @ homie</p>
           <input
-            type="number"
-            id="amount"
-            name="amount"
-            placeholder="Amount"
-            value={amount}
+            type="email"
+            name="email"
+            placeholder="email"
+            className={`${disableAmountInput ? "disabled" : ""}`}
+            value={email}
             onChange={(e) => {
-              setAmount(e.target.value);
+              setEmail(e.target.value);
             }}
             disabled={disableAmountInput}
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            required
+          />
+
+          <p>be descriptive, or not. idc</p>
+          <input
+            type="text"
+            name="description"
+            disabled={disableAmountInput}
+            className={`${disableAmountInput ? "disabled" : ""}`}
+            placeholder="site description"
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            required
+            pattern="^.{2,200}$"
           />
         </div>
         {clientSecret ? (
           <Elements options={options} stripe={stripePromise}>
-            <OrderForm />
+            <OrderForm email={email} />
           </Elements>
         ) : (
           <div className="order-buttons">
             <span
               onClick={handlePaymentIntent}
-              disabled={loading || amount === "" || !validDollarAmount(amount)}
+              className={`${
+                loading ||
+                amount === "" ||
+                !validDollarAmount(amount) ||
+                !email ||
+                !email.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/) ||
+                !description ||
+                !description.match(/^.{2,200}$/)
+                  ? "disabled"
+                  : ""
+              }`}
             >
               {loading ? "orderin" : "order"}
             </span>

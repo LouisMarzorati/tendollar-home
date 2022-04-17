@@ -46,8 +46,7 @@ const webhookHandler = async (req, res) => {
         return res.status(200).send("OK");
       }
       case "payment_intent.succeeded": {
-        const paymentIntent = event.data.object;
-        console.log(`PaymentIntent: ${paymentIntent}`);
+        console.dir(event.data);
         return res.status(200).send(`Webhook received: ${event.type}`);
       }
       case "payment_intent.payment_failed": {

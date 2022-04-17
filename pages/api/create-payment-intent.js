@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { amount } = req.body;
+  const { amount, email, description } = req.body;
 
   // convert to cents
   const amountInCents = amount * 100;
@@ -25,6 +25,10 @@ export default async function handler(req, res) {
     amount: amountInCents,
     currency: "usd",
     payment_method_types: ["card"],
+    metadata: {
+      email,
+      description,
+    },
   });
 
   if (paymentIntent) {

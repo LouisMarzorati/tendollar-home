@@ -217,7 +217,7 @@ a {
   padding: 2rem;
 
   .order-text {
-    font-size: larger;
+    font-size: 1.25rem;
     text-align: center;
     //mobile
     @media (max-width: 600px) {
@@ -272,7 +272,8 @@ input {
 .dollar {
   align-items: center;
   display: flex;
-  font-size: larger;
+  font-size: 1.25rem;
+  width: 100%;
   //mobile
   @media (max-width: 600px) {
     font-size: 1.5rem;
@@ -362,4 +363,11 @@ button {
       background-color: #fdf6e4;
     }
   }
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: default;
+  background-color: rgba(239, 239, 239, 0.3);
+  color: rgb(84, 84, 84);
 }

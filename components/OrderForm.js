@@ -5,16 +5,8 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-
-export default function OrderForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
+export default function OrderForm({ email }) {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);
@@ -55,45 +47,36 @@ export default function OrderForm() {
     }
   }, [stripe]);
 
-  const onSubmit = async (data) => {
-    if (errors.email) {
-      toast.error("Please enter a valid email address");
-      return;
-    }
-    if (!stripe || !elements) {
-      return;
-    }
+  const handleSubmit = async () => {
     setIsLoading(true);
 
     try {
+      alert("paying");
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: `https://tendollar.site/thanks`,
-          receipt_email: data.email,
+          receipt_email: email,
           payment_method_data: {
             billing_details: {
-              email: data.email,
-            },
-            metadata: {
-              description: data.description,
+              email: email,
             },
           },
         },
       });
 
-      const req = await fetch("https://tendollar.site/api/purchase", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: data.email,
-          description: data.description,
-        }),
-      });
-      const res = await req.json();
-      console.log("res", res);
+      //   const req = await fetch("https://tendollar.site/api/purchase", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       email: email,
+      //       description: description,
+      //     }),
+      //   });
+      //   const res = await req.json();
+      //   console.log("res", res);
 
       if (error.type === "card_error" || error.type === "validation_error") {
         toast.error(error.message);
@@ -109,45 +92,13 @@ export default function OrderForm() {
 
   return (
     <div className="payment">
-      <form id="payment-form" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="email"
-          name="email"
-          placeholder="email"
-          {...register("email", {
-            required: true,
-            pattern: /^\S+@\S+$/i,
-          })}
-          error={errors.email}
-        />
-
-        {errors.email && (
-          <span className="errors">enter a valid email address</span>
-        )}
-        <p>be descriptive, or not. idc</p>
-        <input
-          type="text"
-          name="description"
-          placeholder="site description"
-          {...register("description", {
-            required: true,
-            minLength: 2,
-            maxLength: 200,
-          })}
-        />
-        {errors.description && (
-          <span className="errors">
-            {errors.description.type === "minLength" && (
-              <>description gotta be at least 2 characters</>
-            )}
-            {errors.description.type === "maxLength" && (
-              <>description gotta be less than 200 characters</>
-            )}
-            {errors.description.type === "required" && (
-              <>description required</>
-            )}
-          </span>
-        )}
+      <form
+        id="payment-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
         <div className="divider"></div>
         <PaymentElement
           id="payment-element"
