@@ -120,7 +120,6 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <div>
         <Toaster />
-
         <Component {...pageProps} />
       </div>
     </>
