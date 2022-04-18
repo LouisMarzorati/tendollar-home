@@ -51,7 +51,6 @@ export default function OrderForm({ email }) {
     setIsLoading(true);
 
     try {
-      alert("paying");
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
@@ -64,19 +63,6 @@ export default function OrderForm({ email }) {
           },
         },
       });
-
-      //   const req = await fetch("https://tendollar.site/api/purchase", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       email: email,
-      //       description: description,
-      //     }),
-      //   });
-      //   const res = await req.json();
-      //   console.log("res", res);
 
       if (error.type === "card_error" || error.type === "validation_error") {
         toast.error(error.message);

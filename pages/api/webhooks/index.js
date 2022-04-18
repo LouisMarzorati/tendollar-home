@@ -46,7 +46,34 @@ const webhookHandler = async (req, res) => {
         return res.status(200).send("OK");
       }
       case "payment_intent.succeeded": {
-        console.dir(event.data);
+        const payment = event.data.object;
+        console.dir(payment);
+        if (payment && payment.metadata && payment.amount) {
+          const { email, description } = payment.metadata;
+          const amount = payment.amount / 1000;
+
+          const strapi = await fetch(`${process.env.STRAPI}/orders`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${process.env.STRAPI_KEY}`,
+            },
+            body: JSON.stringify({
+              data: {
+                order_number: event.data.object.id,
+                paid: amount,
+                email,
+                description,
+              },
+            }),
+          });
+
+          const result = await strapi.json();
+          console.log("result ", result);
+        } else {
+          console.error("missing payment intent details ", event.data);
+        }
+
         return res.status(200).send(`Webhook received: ${event.type}`);
       }
       case "payment_intent.payment_failed": {
