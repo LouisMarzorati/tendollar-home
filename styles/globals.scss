@@ -303,6 +303,29 @@ button {
   padding: 2rem;
   height: 100vh;
   text-align: center;
+
+  .reciept {
+    border: 1px solid #575659;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 2rem;
+    text-align: center;
+
+    .reciept-text {
+      font-size: 1.25rem;
+      text-align: center;
+      //mobile
+      @media (max-width: 600px) {
+        font-size: 1.5rem;
+      }
+    }
+
+    //mobile
+    @media (max-width: 600px) {
+      padding: 1rem;
+    }
+  }
   h3 {
     font-size: larger;
     //mobile

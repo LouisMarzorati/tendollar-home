@@ -1,6 +1,6 @@
-import Stripe from "stripe";
 import { buffer } from "micro";
 import Cors from "micro-cors";
+import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -47,32 +47,26 @@ const webhookHandler = async (req, res) => {
       }
       case "payment_intent.succeeded": {
         const payment = event.data.object;
-        console.dir(payment);
-        if (payment && payment.metadata && payment.amount) {
-          const { email, description } = payment.metadata;
-          const amount = payment.amount / 1000;
 
-          const strapi = await fetch(`${process.env.STRAPI}/orders`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${process.env.STRAPI_KEY}`,
+        const amount = payment.amount / 1000;
+
+        const { data } = await fetch(`${process.env.STRAPI}/orders`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.STRAPI_KEY}`,
+          },
+          body: JSON.stringify({
+            data: {
+              order_number: event.data.object.id,
+              paid: amount,
+              email: payment.metadata.email,
+              description: payment.metadata.description,
             },
-            body: JSON.stringify({
-              data: {
-                order_number: event.data.object.id,
-                paid: amount,
-                email,
-                description,
-              },
-            }),
-          });
+          }),
+        }).then((res) => res.json());
 
-          const result = await strapi.json();
-          console.log("result ", result);
-        } else {
-          console.error("missing payment intent details ", event.data);
-        }
+        console.log("data ", data);
 
         return res.status(200).send(`Webhook received: ${event.type}`);
       }
