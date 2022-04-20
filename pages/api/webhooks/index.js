@@ -48,7 +48,7 @@ const webhookHandler = async (req, res) => {
       case "payment_intent.succeeded": {
         const payment = event.data.object;
 
-        const amount = payment.amount / 1000;
+        const amount = payment.amount / 100;
 
         const { data } = await fetch(`${process.env.STRAPI}/orders`, {
           method: "POST",
